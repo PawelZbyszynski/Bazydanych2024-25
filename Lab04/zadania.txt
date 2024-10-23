@@ -1,0 +1,10 @@
+ZADANIE 1
+create table postac(id_postaci INTEGER primary key auto_increment,nazwa VARCHAR(40),rodzaj ENUM('wiking', 'ptak', 'kobieta'), data_ur DATE,wiek SMALLINT unsigned);
+insert into postac(nazwa, rodzaj, data_ur, wiek) values('Bjorn','wiking','2000-03-2', 24),('Drozd', 'ptak', '2021-06-01', 3),('tesciowa','kobieta','1990-02-11',34);
+update postac set wiek = 39 where nazwa = 'tesciowa'; 
+ZADANIE 2
+create table walizka(id_walizki INTEGER primary key auto_increment,pojemnosc SMALLINT unsigned,kolor ENUM('rozowy', 'czerwony', 'teczowy', 'zolty'), id_postaci INTEGER, FOREIGN KEY(id_postaci) references postac(id_postaci) on delete cascade);
+alter table walizka Alter kolor set DEFAULT"rozowy";
+insert into walizka(pojemnosc, kolor, id_postaci) values ('4', 'czerwony',1),('2', 'rozowy', 3);
+select * from walizka;
+ZADANIE 3 
