@@ -8,3 +8,4 @@ alter table walizka Alter kolor set DEFAULT"rozowy";
 insert into walizka(pojemnosc, kolor, id_postaci) values ('4', 'czerwony',1),('2', 'rozowy', 3);
 select * from walizka;
 ZADANIE 3 
+create table izbazpolami(adres_budynku VARCHAR(30) primary key,nazwa_izby CHAR(30),metraz INTEGER unsigned,id_postaci INTEGER, FOREIGN KEY(id_postaci) references postac(id_postaci)
