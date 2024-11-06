@@ -8,4 +8,26 @@ alter table walizka Alter kolor set DEFAULT"rozowy";
 insert into walizka(pojemnosc, kolor, id_postaci) values ('4', 'czerwony',1),('2', 'rozowy', 3);
 select * from walizka;
 ZADANIE 3 
-create table izbazpolami(adres_budynku VARCHAR(30) primary key,nazwa_izby CHAR(30),metraz INTEGER unsigned,id_postaci INTEGER, FOREIGN KEY(id_postaci) references postac(id_postaci)
+create table izbazpolami(adres_budynku VARCHAR(30) primary key,nazwa_izby CHAR(30),metraz INTEGER unsigned,id_postaci INTEGER, FOREIGN KEY(id_postaci) references postac(id_postaci) ON DELETE SET NULL);
+ALTER TABLE izbazpolami ADD kolorizby varchar(40) DEFAULT 'czarny' AFTER metraz;
+INSERT INTO izbazpolami(adres_budynku, nazwa_izby) VALUES('szkolna', 'spizarnia');
+ZADANIE 4
+create table przetworyzpolami(id_przetworu VARCHAR(30) primary key, rok_produkcji YEAR DEFAULT (1654), id_wykonawcy INTEGER, FOREIGN KEY(id_wykonawcy) references postac(id_postaci), zawartosc VARCHAR(40), dodatek VARCHAR(40) DEFAULT 'papryczka chilli',id_konsumenta INTEGER,FOREIGN KEY(id_konsumenta) references postac(id_postaci));  
+INSERT INTO przetworyzpolami(zawartosc) VALUES('bigos');
+ZADANIE 5
+insert into postac(nazwa, rodzaj, data_ur, wiek) values('geralt','wiking','2000-03-2', 24),('jaskier', 'wiking', '1999-03-01', 25),('tesc','wiking','1990-02-11',34),('zoltan','wiking','1980-02-11',44),('ja','wiking','2005-03-17',19);
+create table statek(nazwa_statku VARCHAR(40) primary key, rodzaj_statku ENUM('statek1', 'statek2'), data_wodowanie DATE, max_ladownosc INT unsigned not null);
+INSERT INTO statek(nazwa_statku, rodzaj_statku, data_wodowanie, max_ladownosc) values('czarna perla','statek1','2024-02-01', 6),('krazownik','statek2','2023-02-01', 6)
+alter table postac add funkcja VARCHAR(40) AFTER wiek;
+UPDATE postac SET funkcja = 'kapitan' where nazwa = 'bjorn';
+alter table postac add nazwa_statku VARCHAR(40);
+alter table postac add foreign key(nazwa_statku) references statek(nazwa_statku);
+UPDATE postac SET nazwa_statku = 'czarna perla' where nazwa = 'bjorn';
+UPDATE postac SET nazwa_statku = 'czarna perla' where nazwa = 'geralt';
+UPDATE postac SET nazwa_statku = 'czarna perla' where nazwa = 'jaskier';
+UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'ja';
+UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'zoltan';
+UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'tesc';
+UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'Drozd';
+DELETE FROM izbazpolami where nazwa_izby = 'spizarnia';
+DROP TABLE izbazpolami;
