@@ -31,3 +31,16 @@ UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'tesc';
 UPDATE postac SET nazwa_statku = 'krazownik' where nazwa = 'Drozd';
 DELETE FROM izbazpolami where nazwa_izby = 'spizarnia';
 DROP TABLE izbazpolami;
+--------------------LEKCJA 2------------------------
+DELETE FROM postac WHERE nazwa IN ('Zoltan', 'Tesc');
+ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ALTER TABLE przetworyzpolami DROP FOREIGN KEY przetworyzpolami_ibfk_1;
+ALTER TABLE przetworyzpolami DROP FOREIGN KEY przetworyzpolami_ibfk_2;
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+ALTER TABLE postac DROP PRIMARY KEY;
+Zadanie 2
+ALTER TABLE postac ADD pesel CHAR(11) NOT NULL;
+ALTER TABLE postac ADD PRIMARY KEY (pesel);
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+INSERT INTO postac (pesel, nazwa, rodzaj, data_ur, wiek) 
+VALUES ('12345678901', 'Gertruda Nieszczera', 'syrena', '2001-07-15', 23);
