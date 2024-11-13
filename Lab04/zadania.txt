@@ -48,3 +48,14 @@ UPDATE statek SET data_wodowanie = '1939-09-01' WHERE nazwa_statku = 'czarna per
 UPDATE statek SET data_wodowanie = '1945-05-08' WHERE nazwa_statku = 'krazownik';
 UPDATE postac SET nazwa_statku='czarna perla' WHERE NAZWA LIKE %a%;
 SELECT max_ladownosc  * 0.7 FROM statek;
+ALTER TABLE postac ADD CHECK (wiek<1000);
+Zadanie 3 
+CREATE TABLE marynarz LIKE postac;
+INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'czarna perla';
+INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'krazownik';
+Zadanie 4
+UPDATE postac SET nazwa_statku = NULL WHERE nazwa_statku = 'krazownik';
+UPDATE postac SET nazwa_statku = NULL WHERE nazwa_statku = 'czarna perla';
+UPDATE marynarz SET nazwa_statku = NULL WHERE nazwa_statku = 'krazownik';
+UPDATE marynarz SET nazwa_statku = NULL WHERE nazwa_statku = 'czarna perla';
+
