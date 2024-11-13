@@ -37,10 +37,14 @@ ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
 ALTER TABLE przetworyzpolami DROP FOREIGN KEY przetworyzpolami_ibfk_1;
 ALTER TABLE przetworyzpolami DROP FOREIGN KEY przetworyzpolami_ibfk_2;
 ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+ALTER TABLE postac MODIFY id_postaci INT NOT NULL;
 ALTER TABLE postac DROP PRIMARY KEY;
 Zadanie 2
-ALTER TABLE postac ADD pesel CHAR(11) NOT NULL;
-ALTER TABLE postac ADD PRIMARY KEY (pesel);
+ALTER TABLE postac ADD pesel int primary key auto_increment;
+ALTER TABLE postac MODIFY Column pesel VARCHAR(11);
 ALTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
-INSERT INTO postac (pesel, nazwa, rodzaj, data_ur, wiek) 
-VALUES ('12345678901', 'Gertruda Nieszczera', 'syrena', '2001-07-15', 23);
+INSERT INTO postac (id_postaci, pesel, nazwa, rodzaj, data_ur, wiek)  VALUES (9,'12345678901', 'Gertruda Nieszczera', 'syrena', '2001-07-15', 23);
+UPDATE statek SET data_wodowanie = '1939-09-01' WHERE nazwa_statku = 'czarna perla';
+UPDATE statek SET data_wodowanie = '1945-05-08' WHERE nazwa_statku = 'krazownik';
+UPDATE postac SET nazwa_statku='czarna perla' WHERE NAZWA LIKE %a%;
+SELECT max_ladownosc  * 0.7 FROM statek;
