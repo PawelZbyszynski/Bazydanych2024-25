@@ -49,13 +49,33 @@ UPDATE statek SET data_wodowanie = '1945-05-08' WHERE nazwa_statku = 'krazownik'
 UPDATE postac SET nazwa_statku='czarna perla' WHERE NAZWA LIKE %a%;
 SELECT max_ladownosc  * 0.7 FROM statek;
 ALTER TABLE postac ADD CHECK (wiek<1000);
-Zadanie 3 
+INSERT INTO postac (id_postaci, pesel, nazwa,data_ur, wiek)  VALUES (10,'12345678932', 'Loko', 'syrena', '2021-07-15', 3);
 CREATE TABLE marynarz LIKE postac;
 INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'czarna perla';
 INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'krazownik';
-Zadanie 4
+
+Zadanie 5 
 UPDATE postac SET nazwa_statku = NULL WHERE nazwa_statku = 'krazownik';
 UPDATE postac SET nazwa_statku = NULL WHERE nazwa_statku = 'czarna perla';
 UPDATE marynarz SET nazwa_statku = NULL WHERE nazwa_statku = 'krazownik';
 UPDATE marynarz SET nazwa_statku = NULL WHERE nazwa_statku = 'czarna perla';
+DELETE FROM postac WHERE nazwa = 'jaskier';
+DELETE FROM marynarz WHERE nazwa = 'jaskier';
+DROP TABLE statek;
+ALTER TABLE postac drop column nazwa_statku;
+ALTER TABLE marynarz drop column nazwa_statku;
+create TABLE zwierz(id_zwierz INTEGER primary key auto_increment, nazwa varchar(40),wiek SMALLINT unsigned);
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena','zwierz');
+UPDATE postac SET rodzaj = 'zwierz' WHERE nazwa = 'Loko';
+UPDATE marynarz SET rodzaj = 'zwierz' WHERE nazwa = 'Loko';
+INSERT INTO zwierz (nazwa, wiek) VALUES ('Loko', 3);
+
+LEKCJA 3-------------------------
+CREATE TABLE kreatura AS SELECT * from wikingowie.kreatura;
+CREATE TABLE zasob AS SELECT * from wikingowie.zasob;
+CREATE TABLE ekwipunek AS SELECT * from wikingowie.ekwipunek;
+
+
+
+
 
