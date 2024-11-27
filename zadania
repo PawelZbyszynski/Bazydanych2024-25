@@ -92,7 +92,17 @@ select distinct rodzaj from zasob;
 select CONCAT (nazwa, '-', rodzaj) as 'nazwa - rodzaj' from kreatura where rodzaj like 'wi%';
 select nazwa, rodzaj, (ilosc * waga) AS waga_calkowita from zasob where YEAR(datapozyskania) Between 2000 and 2007;
 
+Zad 5 
+select waga * 0.7 AS masa_netto, waga * 0.3 AS masa_odpadow FROM zasob WHERE rodzaj = 'jedzenie';
+select * FROM zasob WHERE rodzaj is NULL;
+select distinct nazwa FROM zasob WHERE nazwa like 'BA%' or nazwa like '%os' order by rodzaj ASC;(cos nie tak)
+Lekcja 4-------------------------------------
+Zad 1
+select AVG(waga) AS srednia_waga from kreatura where rodzaj = 'wiking';
 
+select rodzaj,AVG(waga) AS srednia_waga,count(*) AS liczba_kreatur FROM kreatura GROUP BY rodzaj;
+select rodzaj,AVG(dataUr) AS sredni_wiek from kreatura GROUP BY rodzaj;
+select rodzaj,AVG(2024-YEAR(dataUr)) AS sredni_wiek from kreatura GROUP BY rodzaj;
 
 
 
