@@ -95,14 +95,30 @@ select nazwa, rodzaj, (ilosc * waga) AS waga_calkowita from zasob where YEAR(dat
 Zad 5 
 select waga * 0.7 AS masa_netto, waga * 0.3 AS masa_odpadow FROM zasob WHERE rodzaj = 'jedzenie';
 select * FROM zasob WHERE rodzaj is NULL;
-select distinct nazwa FROM zasob WHERE nazwa like 'BA%' or nazwa like '%os' order by rodzaj ASC;(cos nie tak)
+select distinct nazwa FROM zasob WHERE nazwa like 'Ba%' or '%os' order by nazwa DESC;
 Lekcja 4-------------------------------------
 Zad 1
 select AVG(waga) AS srednia_waga from kreatura where rodzaj = 'wiking';
-
 select rodzaj,AVG(waga) AS srednia_waga,count(*) AS liczba_kreatur FROM kreatura GROUP BY rodzaj;
-select rodzaj,AVG(dataUr) AS sredni_wiek from kreatura GROUP BY rodzaj;
 select rodzaj,AVG(2024-YEAR(dataUr)) AS sredni_wiek from kreatura GROUP BY rodzaj;
+Zad 2
+select rodzaj, sum(waga) as suma_wagi from zasob group by rodzaj;
+select nazwa, AVG(waga) as srednia_waga from zasob  GROUP BY nazwa HAVING sum(ilosc)>=4 and sum(waga)>10;
+select rodzaj, count(DISTINCT nazwa) AS liczba_nazw from zasob GROUP BY rodzaj HAVING min(ilosc) > 1;
+Zad 3 
+select k.nazwa as kreatura, z.idzasobu, sum(z.ilosc) as ilosc_zasobow from zasob z join kreatura k on idkreatury = k.idkreatury group by k.nazwa, z.idzasobu;
+select k.nazwa as kreatura, group_concat(zb.nazwa order by zb.nazwa) as zasoby from kreatura k join zasob z on k.idkreatury = idkreatury join zasob zb on z.idzasobu = zb.idzasobu group by k.nazwa;
+select k.nazwa from kreatura k left join zasob z on k.idkreatury = idkreatury where z.idzasobu is null;
+Zadanie 4
+ 
+select w.nazwa as wiking, z.nazwa as zasob from kreatura w join ekwipunek e on w.idkreatury = e.idkreatury join zasob z on e.idzasobu = z.idzasobu where w.dataur between '1670-01-01' and '1679-12-31';
+select k.nazwa from kreatura k Join ekwipunek e on k.IdKreatury = e.IdKreatury Join zasob z ON e.idZasobu = z.idZasobu where z.rodzaj = 'jedzenie' ORDER BY k.dataUr DESC limit 5;
+select k1.nazwa AS kreatura1, k2.nazwa_kreatury AS kreatura2 FROM kreautura k1 JOIN kreatura k2 on ABS(k1.IdKreatury = k2.IdKreatury) = 5; nie działa
+
+Zad 5
+
+
+
 
 
 
