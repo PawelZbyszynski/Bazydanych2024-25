@@ -113,14 +113,11 @@ Zadanie 4
  
 select w.nazwa as wiking, z.nazwa as zasob from kreatura w join ekwipunek e on w.idkreatury = e.idkreatury join zasob z on e.idzasobu = z.idzasobu where w.dataur between '1670-01-01' and '1679-12-31';
 select k.nazwa from kreatura k Join ekwipunek e on k.IdKreatury = e.IdKreatury Join zasob z ON e.idZasobu = z.idZasobu where z.rodzaj = 'jedzenie' ORDER BY k.dataUr DESC limit 5;
-select k1.nazwa AS kreatura1, k2.nazwa_kreatury AS kreatura2 FROM kreautura k1 JOIN kreatura k2 on ABS(k1.IdKreatury = k2.IdKreatury) = 5; nie działa
+select k1.nazwa AS kreatura1, k2.nazwa AS kreatura2 FROM kreatura k1 JOIN kreatura k2 on ABS(k1.idKreatury - k2.idKreatury) = 5; nie działa
 
 Zad 5
-
-
-
-
-
+select kreatura.rodzaj, AVG(zasob.waga) AS srednia_waga_zasobow from kreatura JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE kreatura.rodzaj NOT IN ('kreatura.malpa', 'kreatura.waz') AND ekwipunek.ilosc < 30 group by kreatura.rodzaj;
+select rodzaj, MIN(dataUR) AS najstarszy, MAX(dataUr) AS najmlodszy FROM kreatura;
 
 
 
