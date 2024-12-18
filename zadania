@@ -117,10 +117,32 @@ select k1.nazwa AS kreatura1, k2.nazwa AS kreatura2 FROM kreatura k1 JOIN kreatu
 
 Zad 5
 select kreatura.rodzaj, AVG(zasob.waga) AS srednia_waga_zasobow from kreatura JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE kreatura.rodzaj NOT IN ('kreatura.malpa', 'kreatura.waz') AND ekwipunek.ilosc < 30 group by kreatura.rodzaj;
-select rodzaj, MIN(dataUR) AS najstarszy, MAX(dataUr) AS najmlodszy FROM kreatura;
 
-
-
-
-
+select 'najstarsze' as typ, nazwa, dataUr, rodzaj FROM kreatura k WHERE dataUr = (select max(dataUr) FROM kreatura k1 WHERE k1.rodzaj = k.rodzaj)
+UNION ALL
+select 'najmlodsze' as typ, nazwa, dataUr, rodzaj FROM kreatura k WHERE dataUr = (select min(dataUr) FROM kreatura k1 WHERE k1.rodzaj = k.rodzaj);
+lub
+SELECT 
+    k1.rodzaj,
+    k1.nazwa AS najmłodsza_nazwa,
+    k1.dataUr AS najmłodsza_data_urodzenia,
+    k1.rodzaj AS najmłodszy_rodzaj,
+    k2.nazwa AS najstarsza_nazwa,
+    k2.dataUr AS najstarsza_data_urodzenia,
+    k2.rodzaj AS najstarszy_rodzaj
+FROM kreatura k1
+JOIN kreatura k2 ON k1.rodzaj = k2.rodzaj
+WHERE k1.dataUr= (SELECT MAX(dataUr) FROM kreatura WHERE rodzaj = k1.rodzaj)
+AND k2.dataUr = (SELECT MIN(dataUr) FROM kreatura WHERE rodzaj = k2.rodzaj);
+LEKJCA 5---------------------------------------------
+CREATE TABLE kreatura1 AS SELECT * from wikingowie.kreatura;
+CREATE TABLE uczestnicy AS SELECT * from wikingowie.uczestnicy;
+CREATE TABLE etapy_wyprawy AS SELECT * from wikingowie.etapy_wyprawy;
+CREATE TABLE sektor AS SELECT * from wikingowie.sektor;
+CREATE TABLE wyprawa AS SELECT * from wikingowie.wyprawa;
+zadanie 2
+select kreatura.nazwa from kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury=uczestnicy.id_uczestnika where uczestnicy.id_uczestnika IS NULL;
+select wyprawa.nazwa AS wyprawa, sum(ekwipunek.ilosc) AS suma_ekwipunku FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN ekwipunek on ekwipunek.idKreatury=uczestnicy.id_uczestnika group by wyprawa.nazwa;
+lub
+SELECT wyprawa.nazwa, sum(ekwipunek.ilosc) AS suma_ilosci_ekwipunku FROM wyprawa, kreatura, uczestnicy, ekwipunek WHERE wyprawa.id_wyprawy = uczestnicy.id_wyprawy AND uczestnicy.id_uczestnika = kreatura.idKreatury AND kreatura.idKreatury = ekwipunek.idKreatury GROUP BY wyprawa.nazwa;
 
